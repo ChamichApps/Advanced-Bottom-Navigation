@@ -1,6 +1,7 @@
 package am.chamich.apps.advancedbottomnavigation
 
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,12 @@ import android.view.ViewGroup
 
 
 class FavoritesFragment : androidx.fragment.app.Fragment() {
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+
+        Log.i("~~~", "$TAG[$this] - onAttach()")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,10 +34,28 @@ class FavoritesFragment : androidx.fragment.app.Fragment() {
         Log.i("~~~", "$TAG[$this] - savedInstanceState: $savedInstanceState")
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+        Log.i("~~~", "$TAG[$this] - onViewStateRestored($savedInstanceState)")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        Log.i("~~~", "$TAG[$this] - onSaveInstanceState($outState)")
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
 
         Log.i("~~~", "$TAG[$this] - onDestroyView()")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+
+        Log.i("~~~", "$TAG[$this] - onDetach()")
     }
 
     override fun onDestroy() {
