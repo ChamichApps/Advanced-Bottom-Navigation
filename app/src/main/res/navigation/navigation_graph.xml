@@ -14,7 +14,7 @@
 
     <retain_state_fragment
             android:id="@+id/actionFavorites"
-            android:name="am.chamich.apps.advancedbottomnavigation.FavoritesFragment"
+            android:name="am.chamich.apps.advancedbottomnavigation.feature_favorites.FavoritesFragment"
             android:label="fragment_favorites"
             tools:layout="@layout/fragment_favorites"/>
 
