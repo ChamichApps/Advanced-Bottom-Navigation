@@ -2,6 +2,7 @@ package am.chamich.apps.advancedbottomnavigation.feature_favorites
 
 
 import am.chamich.apps.advancedbottomnavigation.R
+import am.chamich.apps.advancedbottomnavigation.feature_favorites.model.IFavorite
 import am.chamich.apps.advancedbottomnavigation.navigator.isRecreated
 import android.os.Bundle
 import android.util.Log
@@ -51,7 +52,7 @@ class FavoritesFragment : Fragment(), IFavoritesView {
         recyclerview_favorites.layoutManager = null
     }
 
-    override fun renderFavorites(favorites: List<String>) {
+    override fun renderFavorites(favorites: List<IFavorite>) {
         Log.d(TAG, "List of Favorites Received.")
         viewAdapter.setFavorites(favorites)
     }
