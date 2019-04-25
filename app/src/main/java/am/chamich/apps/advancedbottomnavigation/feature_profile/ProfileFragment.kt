@@ -1,13 +1,14 @@
-package am.chamich.apps.advancedbottomnavigation
+package am.chamich.apps.advancedbottomnavigation.feature_profile
 
 
+import am.chamich.apps.advancedbottomnavigation.R
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class HomeFragment : androidx.fragment.app.Fragment() {
+class ProfileFragment : androidx.fragment.app.Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,7 +17,7 @@ class HomeFragment : androidx.fragment.app.Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,6 +40,6 @@ class HomeFragment : androidx.fragment.app.Fragment() {
     }
 
     companion object {
-        private val TAG = HomeFragment::class.java.simpleName
+        private val TAG = ProfileFragment::class.java.simpleName
     }
 }
