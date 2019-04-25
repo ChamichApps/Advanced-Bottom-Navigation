@@ -5,6 +5,10 @@ class FavoritesPresenter {
     internal var view: IFavoritesView? = null
 
     fun loadFavorites() {
-        view?.renderFavorites(arrayOf("1", "2", "3"))
+        view?.renderFavorites(listOf("Favorite 1", "Favorite 2", "Favorite 3"))
+    }
+
+    fun destroy() {
+        view = null
     }
 }

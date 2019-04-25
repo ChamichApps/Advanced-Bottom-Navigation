@@ -2,6 +2,7 @@ package am.chamich.apps.advancedbottomnavigation.feature_favorites
 
 
 import am.chamich.apps.advancedbottomnavigation.R
+import am.chamich.apps.advancedbottomnavigation.navigator.isRecreated
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,21 +10,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_favorites.recyclerview_favorites
 
 class FavoritesFragment : Fragment(), IFavoritesView {
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: FavoritesAdapter
-    private var presenter: FavoritesPresenter? = null
+    private lateinit var presenter: FavoritesPresenter
+
+    init {
+        retainInstance = true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.i("~~~", "$TAG[$this] - onCreate()")
-
         viewAdapter = FavoritesAdapter()
+        presenter = FavoritesPresenter()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -33,34 +35,25 @@ class FavoritesFragment : Fragment(), IFavoritesView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.i("~~~", "$TAG[$this] - onViewCreated()")
-        Log.i("~~~", "$TAG[$this] - savedInstanceState: $savedInstanceState")
         initializeRecyclerView()
 
-
-        if (presenter == null) {
-            presenter = FavoritesPresenter().apply {
-                this.view = this@FavoritesFragment
-                this.loadFavorites()
-            }
+        presenter.view = this
+        if (!isRecreated) {
+            presenter.loadFavorites()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
 
-        Log.i("~~~", "$TAG[$this] - onDestroyView()")
+        presenter.destroy()
+        recyclerview_favorites.adapter = null
+        recyclerview_favorites.layoutManager = null
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        Log.i("~~~", "$TAG[$this] - onDestroy()")
-    }
-
-    override fun renderFavorites(favorites: Array<String>) {
-        viewAdapter.dataset = favorites
-        viewAdapter.notifyDataSetChanged()
+    override fun renderFavorites(favorites: List<String>) {
+        Log.d(TAG, "List of Favorites Received.")
+        viewAdapter.setFavorites(favorites)
     }
 
     private fun initializeRecyclerView() {

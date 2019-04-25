@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class FavoritesAdapter: RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
 
-    var dataset: Array<String> = emptyArray()
+    private val favorites: MutableList<String> = mutableListOf()
 
     class FavoritesViewHolder(val textview_name: TextView) : RecyclerView.ViewHolder(textview_name)
 
@@ -22,9 +22,14 @@ class FavoritesAdapter: RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolde
     override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.textview_name.text = dataset[position]
+        holder.textview_name.text = favorites[position]
     }
 
-    override fun getItemCount() = dataset.size
+    override fun getItemCount() = favorites.size
+
+    fun setFavorites(favorites: List<String>) {
+        this.favorites.addAll(favorites)
+        this.notifyDataSetChanged()
+    }
 
 }
