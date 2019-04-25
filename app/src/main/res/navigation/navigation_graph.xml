@@ -8,7 +8,7 @@
 
     <retain_state_fragment
             android:id="@+id/actionHome"
-    § android:name="am.chamich.apps.advancedbottomnavigation.feature_home.HomeFragment"
+            android:name="am.chamich.apps.advancedbottomnavigation.feature_home.HomeFragment"
             android:label="fragment_home"
             tools:layout="@layout/fragment_home"/>
 
