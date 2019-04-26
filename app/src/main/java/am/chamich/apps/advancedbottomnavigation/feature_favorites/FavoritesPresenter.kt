@@ -8,9 +8,9 @@ class FavoritesPresenter {
 
     fun loadFavorites() {
         view?.renderFavorites(listOf(
-            Favorite("Favorite 1"),
-            Favorite("Favorite 2"),
-            Favorite("Favorite 3")))
+            Favorite("1", "Favorite 1"),
+            Favorite("2","Favorite 2"),
+            Favorite("3", "Favorite 3")))
     }
 
     fun destroy() {

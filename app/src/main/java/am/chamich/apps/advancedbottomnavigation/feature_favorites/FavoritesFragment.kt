@@ -54,7 +54,7 @@ class FavoritesFragment : Fragment(), IFavoritesView {
 
     override fun renderFavorites(favorites: List<IFavorite>) {
         Log.d(TAG, "List of Favorites Received.")
-        viewAdapter.setFavorites(favorites)
+        viewAdapter.setFavorites(favorites.asDisplayedFavorites)
     }
 
     private fun initializeRecyclerView() {

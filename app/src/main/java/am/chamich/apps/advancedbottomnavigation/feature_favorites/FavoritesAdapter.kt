@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 
 class FavoritesAdapter: RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
 
-    private val favorites: MutableList<IFavorite> = mutableListOf()
+    private val favorites: MutableList<DisplayedFavorite> = mutableListOf()
 
-    class FavoritesViewHolder(val viewItem: View) : RecyclerView.ViewHolder(viewItem) {
-        val name = viewItem.findViewById<TextView>(R.id.textview_favorite_name)
+    class FavoritesViewHolder(viewItem: View) : RecyclerView.ViewHolder(viewItem) {
+        val name: TextView = viewItem.findViewById(R.id.textview_favorite_name)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup,
@@ -28,9 +28,18 @@ class FavoritesAdapter: RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolde
 
     override fun getItemCount() = favorites.size
 
-    fun setFavorites(favorites: List<IFavorite>) {
+    fun setFavorites(favorites: List<DisplayedFavorite>) {
         this.favorites.addAll(favorites)
         this.notifyDataSetChanged()
     }
-
 }
+
+data class DisplayedFavorite(
+    val id: String,
+    val name: String
+)
+
+val List<IFavorite>.asDisplayedFavorites: List<DisplayedFavorite>
+    get() = this.map {
+        DisplayedFavorite(it.id, it.name)
+    }
