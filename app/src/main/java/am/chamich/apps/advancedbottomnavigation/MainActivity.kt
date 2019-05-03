@@ -1,14 +1,14 @@
 package am.chamich.apps.advancedbottomnavigation
 
+import am.chamich.apps.advancedbottomnavigation.core.CoreActivity
 import am.chamich.apps.advancedbottomnavigation.navigator.RetainStateFragmentNavigator
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.plusAssign
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : CoreActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

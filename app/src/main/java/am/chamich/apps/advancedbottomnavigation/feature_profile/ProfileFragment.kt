@@ -2,13 +2,14 @@ package am.chamich.apps.advancedbottomnavigation.feature_profile
 
 
 import am.chamich.apps.advancedbottomnavigation.R
+import am.chamich.apps.advancedbottomnavigation.core.CoreFragment
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class ProfileFragment : androidx.fragment.app.Fragment() {
+class ProfileFragment : CoreFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

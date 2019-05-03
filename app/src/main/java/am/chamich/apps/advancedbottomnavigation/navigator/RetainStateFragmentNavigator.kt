@@ -2,7 +2,6 @@ package am.chamich.apps.advancedbottomnavigation.navigator
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
@@ -37,7 +36,6 @@ class RetainStateFragmentNavigator(
             fragment = instantiateFragment(context, manager, className, args)
             transaction.add(containerId, fragment, tag)
         } else {
-            fragment.reattach()
             transaction.attach(fragment)
         }
 
@@ -46,14 +44,5 @@ class RetainStateFragmentNavigator(
         transaction.commit()
 
         return destination
-    }
-}
-
-val Fragment.isRecreated
-    get() = arguments?.containsKey(IS_RECREATED) ?: false
-
-private fun Fragment.reattach() {
-    arguments = Bundle().apply {
-        putBoolean(IS_RECREATED, true)
     }
 }

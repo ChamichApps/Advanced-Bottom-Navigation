@@ -2,18 +2,18 @@ package am.chamich.apps.advancedbottomnavigation.feature_favorites
 
 
 import am.chamich.apps.advancedbottomnavigation.R
+import am.chamich.apps.advancedbottomnavigation.core.CoreFragment
 import am.chamich.apps.advancedbottomnavigation.feature_favorites.model.IFavorite
-import am.chamich.apps.advancedbottomnavigation.navigator.isRecreated
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_favorites.recyclerview_favorites
+import kotlinx.android.synthetic.main.fragment_favorites.*
 
-class FavoritesFragment : Fragment(), IFavoritesView {
+class FavoritesFragment : CoreFragment(), IFavoritesView, FavoritesAdapter.OnItemClickListener {
 
     private lateinit var viewAdapter: FavoritesAdapter
     private lateinit var presenter: FavoritesPresenter
@@ -25,27 +25,33 @@ class FavoritesFragment : Fragment(), IFavoritesView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewAdapter = FavoritesAdapter()
+        Log.i("~~~", "$TAG[$this] - onCreate()")
+
+        viewAdapter = FavoritesAdapter(this)
         presenter = FavoritesPresenter()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_favorites, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_favorites, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.i("~~~", "$TAG[$this] - onViewCreated()")
+        Log.i("~~~", "$TAG[$this] - savedInstanceState: $savedInstanceState")
+
         initializeRecyclerView()
 
         presenter.view = this
-        if (!isRecreated) {
+        if (!presenter.isInitialLoadCompleted) {
             presenter.loadFavorites()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+
+        Log.i("~~~", "$TAG[$this] - onDestroyView()")
 
         presenter.destroy()
         recyclerview_favorites.adapter = null
@@ -55,6 +61,10 @@ class FavoritesFragment : Fragment(), IFavoritesView {
     override fun renderFavorites(favorites: List<IFavorite>) {
         Log.d(TAG, "List of Favorites Received.")
         viewAdapter.setFavorites(favorites.asDisplayedFavorites)
+    }
+
+    override fun onItemClick() {
+        findNavController().navigate(R.id.favoriteDetailsFragment)
     }
 
     private fun initializeRecyclerView() {

@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class FavoritesAdapter: RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
+class FavoritesAdapter(
+    private val listener: OnItemClickListener
+) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
 
     private val favorites: MutableList<DisplayedFavorite> = mutableListOf()
 
@@ -24,6 +26,9 @@ class FavoritesAdapter: RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolde
 
     override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
         holder.name.text = favorites[position].name
+        holder.itemView.setOnClickListener {
+            listener.onItemClick()
+        }
     }
 
     override fun getItemCount() = favorites.size
@@ -31,6 +36,10 @@ class FavoritesAdapter: RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolde
     fun setFavorites(favorites: List<DisplayedFavorite>) {
         this.favorites.addAll(favorites)
         this.notifyDataSetChanged()
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick()
     }
 }
 
